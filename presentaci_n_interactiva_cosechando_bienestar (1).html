@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosechando Bienestar - Presentación Interactiva</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: translateY(10px);
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Custom Scrollbar for inner elements */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #059669;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="w-full bg-slate-900/80 backdrop-blur-md border-b border-slate-800 p-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-2">
+            <div class="flex items-center space-x-3">
+                <div class="bg-emerald-600 text-white p-2 rounded-xl shadow-lg">
+                    <i class="fa-solid fa-seedling text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight text-white">Cosechando Bienestar</h1>
+                    <p class="text-xs text-emerald-400 font-medium">IED Minipí de Quijano & SENA</p>
+                </div>
+            </div>
+            
+            <!-- Slide Counter -->
+            <div class="hidden sm:flex items-center space-x-2 bg-slate-800/80 px-4 py-1.5 rounded-full border border-slate-700">
+                <span class="text-xs text-slate-400 uppercase tracking-wider">Diapositiva</span>
+                <span id="slide-indicator" class="text-emerald-400 font-bold text-sm">1 / 5</span>
+            </div>
+
+            <!-- Quick Action Button -->
+            <button onclick="goToSlide(5)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-emerald-900/30">
+                <i class="fa-solid fa-qrcode"></i>
+                <span>Ver Código QR</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area / Slides Container -->
+    <main class="flex-grow flex items-center justify-center p-4 md:p-8 max-w-6xl mx-auto w-full">
+        
+        <!-- SLIDE 1: Portada -->
+        <section id="slide-1" class="slide active flex-col items-center justify-center text-center w-full min-h-[70vh]">
+            <div class="glass-card p-8 md:p-12 rounded-3xl max-w-3xl w-full shadow-2xl relative overflow-hidden border border-emerald-500/20">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-green-500/10 rounded-full blur-3xl"></div>
+                
+                <span class="bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/20 inline-block mb-6">
+                    Proyecto Pedagógico Productivo
+                </span>
+                
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight leading-tight">
+                    Cosechando <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-300">Bienestar</span>
+                </h1>
+                
+                <p class="text-slate-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto font-light leading-relaxed">
+                    Innovación agrícola, sostenibilidad y emprendimiento en la comunidad escolar.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left bg-slate-900/50 p-4 rounded-2xl border border-slate-800 mb-8">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-school text-emerald-400 text-lg"></i>
+                        <div>
+                            <p class="text-xs text-slate-400">Institución</p>
+                            <p class="text-sm font-semibold text-slate-200">IED Minipí de Quijano</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-graduation-cap text-emerald-400 text-lg"></i>
+                        <div>
+                            <p class="text-xs text-slate-400">Aliado Estratégico</p>
+                            <p class="text-sm font-semibold text-slate-200">SENA Subsedes Cundinamarca</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="nextSlide()" class="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold px-8 py-3.5 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/20 flex items-center space-x-2 mx-auto">
+                    <span>Explorar Presentación</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: Introducción y Objetivos -->
+        <section id="slide-2" class="slide flex-col items-center justify-center w-full min-h-[70vh]">
+            <div class="glass-card p-6 md:p-10 rounded-3xl w-full shadow-2xl">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-xl">
+                        <i class="fa-solid fa-bullseye text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white">Objetivos del Proyecto</h2>
+                        <p class="text-xs text-slate-400">Transformación agrícola integral</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/30 transition-all">
+                        <div class="w-12 h-12 bg-emerald-600/20 text-emerald-400 rounded-xl flex items-center justify-center mb-4 text-xl">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3 class="font-bold text-white mb-2">Producción Sostenible</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Fomentar técnicas agrícolas ecológicas que respeten el suelo y promuevan la biodiversidad local.</p>
+                    </div>
+
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/30 transition-all">
+                        <div class="w-12 h-12 bg-emerald-600/20 text-emerald-400 rounded-xl flex items-center justify-center mb-4 text-xl">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h3 class="font-bold text-white mb-2">Aprendizaje Práctico</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Articular la educación formal con competencias técnicas avaladas por el SENA.</p>
+                    </div>
+
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/30 transition-all">
+                        <div class="w-12 h-12 bg-emerald-600/20 text-emerald-400 rounded-xl flex items-center justify-center mb-4 text-xl">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h3 class="font-bold text-white mb-2">Impacto Comunitario</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Generar seguridad alimentaria y desarrollo económico para los estudiantes y sus familias.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: Componentes Técnicos -->
+        <section id="slide-3" class="slide flex-col items-center justify-center w-full min-h-[70vh]">
+            <div class="glass-card p-6 md:p-10 rounded-3xl w-full shadow-2xl">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-xl">
+                        <i class="fa-solid fa-gears text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white">Ejes de Innovación</h2>
+                        <p class="text-xs text-slate-400">Metodología y tecnología aplicadas</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="flex space-x-4 bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+                        <div class="text-emerald-400 text-2xl mt-1"><i class="fa-solid fa-droplet"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white text-base">Riego Eficiente</h4>
+                            <p class="text-slate-400 text-sm mt-1">Implementación de sistemas automatizados de riego por goteo para optimizar el recurso hídrico.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4 bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+                        <div class="text-emerald-400 text-2xl mt-1"><i class="fa-solid fa-recycle"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white text-base">Abonos Orgánicos</h4>
+                            <p class="text-slate-400 text-sm mt-1">Transformación de residuos compostables en insumos de alta calidad nutritiva para los cultivos.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4 bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+                        <div class="text-emerald-400 text-2xl mt-1"><i class="fa-solid fa-chart-line"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white text-base">Monitoreo de Cultivos</h4>
+                            <p class="text-slate-400 text-sm mt-1">Registro de datos agronómicos para el control fitosanitario y proyección de cosechas.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4 bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+                        <div class="text-emerald-400 text-2xl mt-1"><i class="fa-solid fa-store"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white text-base">Comercialización Directa</h4>
+                            <p class="text-slate-400 text-sm mt-1">Estrategias de mercadeo para conectar los productos escolares con mercados locales.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: Logros e Impacto -->
+        <section id="slide-4" class="slide flex-col items-center justify-center w-full min-h-[70vh]">
+            <div class="glass-card p-6 md:p-10 rounded-3xl w-full shadow-2xl">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-xl">
+                        <i class="fa-solid fa-trophy text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white">Resultados y Metas</h2>
+                        <p class="text-xs text-slate-400">Impacto en la IED Minipí de Quijano</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-800 text-center">
+                        <span class="block text-3xl md:text-4xl font-extrabold text-emerald-400 mb-1">+150</span>
+                        <span class="text-xs text-slate-400">Estudiantes Beneficiados</span>
+                    </div>
+                    <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-800 text-center">
+                        <span class="block text-3xl md:text-4xl font-extrabold text-emerald-400 mb-1">100%</span>
+                        <span class="text-xs text-slate-400">Orgánico & Orgullo Local</span>
+                    </div>
+                    <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-800 text-center">
+                        <span class="block text-3xl md:text-4xl font-extrabold text-emerald-400 mb-1">3</span>
+                        <span class="text-xs text-slate-400">Líneas de Producción</span>
+                    </div>
+                    <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-800 text-center">
+                        <span class="block text-3xl md:text-4xl font-extrabold text-emerald-400 mb-1">1</span>
+                        <span class="text-xs text-slate-400">Alianza Estratégica SENA</span>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-950/40 border border-emerald-500/30 rounded-2xl p-4 flex items-center justify-between">
+                    <p class="text-sm text-emerald-200">¿Quieres conocer más sobre nuestros productos y cronograma?</p>
+                    <button onclick="nextSlide()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all">
+                        Escanear QR
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: Código QR y Publicación -->
+        <section id="slide-5" class="slide flex-col items-center justify-center w-full min-h-[70vh]">
+            <div class="glass-card p-6 md:p-10 rounded-3xl w-full max-w-2xl text-center shadow-2xl relative">
+                
+                <span class="bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/20 inline-block mb-4">
+                    Acceso Digital Instantáneo
+                </span>
+
+                <h2 class="text-2xl md:text-4xl font-extrabold text-white mb-2">¡Escanea para Visitar el Sitio!</h2>
+                <p class="text-slate-300 text-sm mb-6">
+                    Utiliza la cámara de tu móvil para acceder a la versión web interactiva y explorar todo el material del proyecto.
+                </p>
+
+                <!-- Container for QR Code -->
+                <div class="bg-white p-4 rounded-2xl inline-block shadow-2xl mb-6 relative group border-4 border-emerald-500/30">
+                    <div id="qrcode" class="flex justify-center items-center"></div>
+                </div>
+
+                <!-- Editable URL input for dynamic QR generation -->
+                <div class="max-w-md mx-auto bg-slate-900/80 p-3 rounded-2xl border border-slate-800 space-y-3">
+                    <label for="url-input" class="block text-xs font-semibold text-slate-400 text-left px-1">
+                        URL Enlazada (Modificable en tiempo real):
+                    </label>
+                    <div class="flex gap-2">
+                        <input type="text" id="url-input" class="w-full bg-slate-800 text-xs text-emerald-300 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-emerald-500" value="https://cosechando-bienestar.vercel.app">
+                        <button onclick="updateQRCode()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all whitespace-nowrap">
+                            Actualizar QR
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-center items-center space-x-4 text-xs text-slate-400">
+                    <span class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> Sitio Publicado</span>
+                    <span class="flex items-center"><i class="fa-solid fa-mobile-screen text-emerald-400 mr-1.5"></i> Optimizado Móvil</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Controls -->
+    <footer class="w-full bg-slate-900/80 backdrop-blur-md border-t border-slate-800 p-4 sticky bottom-0 z-50">
+        <div class="max-w-4xl mx-auto flex justify-between items-center px-2">
+            
+            <button onclick="prevSlide()" id="btn-prev" class="bg-slate-800 hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center space-x-2 border border-slate-700">
+                <i class="fa-solid fa-chevron-left"></i>
+                <span>Anterior</span>
+            </button>
+
+            <!-- Slide Dots -->
+            <div class="flex space-x-2">
+                <button onclick="goToSlide(1)" class="dot w-3 h-3 rounded-full bg-slate-700 transition-all"></button>
+                <button onclick="goToSlide(2)" class="dot w-3 h-3 rounded-full bg-slate-700 transition-all"></button>
+                <button onclick="goToSlide(3)" class="dot w-3 h-3 rounded-full bg-slate-700 transition-all"></button>
+                <button onclick="goToSlide(4)" class="dot w-3 h-3 rounded-full bg-slate-700 transition-all"></button>
+                <button onclick="goToSlide(5)" class="dot w-3 h-3 rounded-full bg-slate-700 transition-all"></button>
+            </div>
+
+            <button onclick="nextSlide()" id="btn-next" class="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-30 disabled:cursor-not-allowed text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center space-x-2 shadow-lg shadow-emerald-900/30">
+                <span>Siguiente</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 5;
+        let qrcodeObj = null;
+
+        // Initialize Page
+        window.onload = function() {
+            updateSlideUI();
+            initQRCode();
+        };
+
+        // Navigation Functions
+        function goToSlide(slideIndex) {
+            if (slideIndex < 1 || slideIndex > totalSlides) return;
+            currentSlide = slideIndex;
+            updateSlideUI();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlideUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlideUI();
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // UI Update Helper
+        function updateSlideUI() {
+            // Update Slides Visibility
+            document.querySelectorAll('.slide').forEach((slide, idx) => {
+                if (idx + 1 === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Update Slide Indicator Text
+            document.getElementById('slide-indicator').textContent = `${currentSlide} / ${totalSlides}`;
+
+            // Update Navigation Buttons
+            document.getElementById('btn-prev').disabled = (currentSlide === 1);
+            document.getElementById('btn-next').disabled = (currentSlide === totalSlides);
+
+            // Update Pagination Dots
+            document.querySelectorAll('.dot').forEach((dot, idx) => {
+                if (idx + 1 === currentSlide) {
+                    dot.classList.remove('bg-slate-700', 'w-3');
+                    dot.classList.add('bg-emerald-400', 'w-6');
+                } else {
+                    dot.classList.remove('bg-emerald-400', 'w-6');
+                    dot.classList.add('bg-slate-700', 'w-3');
+                }
+            });
+        }
+
+        // Initialize Dynamic QR Code
+        function initQRCode() {
+            const qrContainer = document.getElementById("qrcode");
+            const initialUrl = document.getElementById("url-input").value;
+
+            qrContainer.innerHTML = "";
+            qrcodeObj = new QRCode(qrContainer, {
+                text: initialUrl,
+                width: 180,
+                height: 180,
+                colorDark : "#0f172a",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+
+        // Update QR Code from input text
+        function updateQRCode() {
+            const urlValue = document.getElementById("url-input").value;
+            if (!urlValue.trim()) return;
+
+            if (qrcodeObj) {
+                qrcodeObj.clear();
+                qrcodeObj.makeCode(urlValue);
+            } else {
+                initQRCode();
+            }
+        }
+    </script>
+</body>
+</html>
